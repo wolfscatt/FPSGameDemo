@@ -15,7 +15,7 @@ public class MouseInput : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(1) && !GameManager.Instance.isGamePaused)
         {
             Cursor.lockState = CursorLockMode.Locked;
         }
@@ -23,6 +23,7 @@ public class MouseInput : MonoBehaviour
         {
             Cursor.lockState = CursorLockMode.None;
         }
+      
         float mouseXPos = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
         float mouseYPos = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
 

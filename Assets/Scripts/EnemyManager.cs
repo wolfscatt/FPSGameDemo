@@ -25,6 +25,8 @@ public class EnemyManager : MonoBehaviour
     public GameObject projectile;
     public float projectileSpeed = 20f;
     private Animator enemyAnimator;
+    [Header("Particle Effect")]
+    public ParticleSystem deathEffect;
     private void Start()
     {
         enemyAgent = GetComponent<NavMeshAgent>();
@@ -132,8 +134,9 @@ public class EnemyManager : MonoBehaviour
 
     private void EnemyDeath()
     {
-        // Burada farklı effectler falan çalıştırılacak.
+        GameManager.Instance.AddKill();
         Destroy(gameObject);
+        Instantiate(deathEffect, transform.position, Quaternion.identity);
     }
 
     private void OnDrawGizmosSelected()

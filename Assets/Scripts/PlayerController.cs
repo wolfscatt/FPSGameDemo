@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private CharacterController characterController;
     [Header("Movement")]
     public float speed = 12f;
+    public float sprintSpeed = 16f;
     public float jumpSpeed = 5f;
     // Gravity fields
     public float gravity = -15f;
@@ -34,6 +35,8 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         MovePlayer();
+        SprintPlayer();
+        CrounchPlayer();
         GroundCheck();
         JumpAndGravity();
     }
@@ -49,6 +52,18 @@ public class PlayerController : MonoBehaviour
         else
         {
             characterController.Move(moveVector * speed * Time.deltaTime);
+        }
+    }
+    private void SprintPlayer()
+    {
+        // Sprint the player
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            speed = sprintSpeed;
+        }
+        else
+        {
+            speed = 12f;
         }
     }
     private void GroundCheck()
@@ -69,6 +84,18 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
             gravityVector.y = Mathf.Sqrt(jumpSpeed * -2f * gravity);
+        }
+    }
+    private void CrounchPlayer()
+    {
+        // Crounch the player
+        if (Input.GetKey(KeyCode.LeftControl))
+        {
+            characterController.height = 1f;
+        }
+        else
+        {
+            characterController.height = 2f;
         }
     }
 
